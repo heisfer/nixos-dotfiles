@@ -22,6 +22,7 @@
     libnotify
     (callPackage ./pkgs/den.nix { } )
     (callPackage ./pkgs/gdlauncher.nix { } )
+    (callPackage ./pkgs/miru.nix { } )
   ];
   imports = [
     inputs.hyprland.homeManagerModules.default
