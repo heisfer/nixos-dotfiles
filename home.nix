@@ -20,6 +20,8 @@
     xorg.xeyes
     wl-clipboard
     libnotify
+    zip
+    unzip
     (callPackage ./pkgs/den.nix { } )
     (callPackage ./pkgs/gdlauncher.nix { } )
     (callPackage ./pkgs/miru.nix { } )
