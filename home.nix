@@ -5,7 +5,6 @@
     firefox-devedition-bin
     discord
     grim
-    wl-clipboard
     neofetch
     slurp
     jq
@@ -13,6 +12,16 @@
     youtube-music
     scrcpy
     symfony-cli
+    jetbrains.phpstorm
+    nix-prefetch-git
+    lm_sensors
+    pavucontrol
+    htop
+    xorg.xeyes
+    wl-clipboard
+    libnotify
+    (callPackage ./pkgs/den.nix { } )
+    (callPackage ./pkgs/gdlauncher.nix { } )
   ];
   imports = [
     inputs.hyprland.homeManagerModules.default
@@ -25,8 +34,9 @@
   programs.rofi = {
     enable = true;
     font = "Comic Code Ligatures 14";
-        package = pkgs.rofi-wayland.override {
-	    };
+    package = pkgs.rofi-wayland.override {
+    plugins = with pkgs; [ rofi-rbw ];
+    };
   };
   
   xdg.configFile."rofi".source = ./dot/rofi;
@@ -41,5 +51,15 @@
       mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
     });
   };
-
+  services.dunst = {
+    enable = true;
+  };
+  home.sessionVariables = {
+    _JAVA_AWT_WM_NONREPARENTING = "1";
+    MOZ_ENABLE_WAYLAND = "1";
+    QT_QPA_PLATFORM = "wayland";
+    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+    SDL_VIDEODRIVER = "wayland";
+    XDG_SESSION_TYPE = "wayland";
+  };
 }

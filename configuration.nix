@@ -29,6 +29,7 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+ # networking.networkmanager.dns = "dnsmasq";
 
   # Set your time zone.
   time.timeZone = "Europe/Tallinn";
@@ -78,7 +79,6 @@
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
-    #media-session.enable = true;
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -137,7 +137,14 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-  hardware.bluetooth.enable = true;
+  hardware.bluetooth = {
+    enable = true;
+  };
+  hardware.bluetooth.settings = {
+    General = {
+      Enable = "Source,Sink,Media,Socket";
+    };
+  };
   hardware.opengl.driSupport = true;
   hardware.opengl.enable = true;
   hardware.opengl.driSupport32Bit = true;
@@ -155,4 +162,25 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "22.11"; # Did you read the comment?
 
+
+  services.dnsmasq.enable = true;
+  services.dnsmasq.extraConfig = ''
+   address=/.local/127.0.0.1
+  '';
+
+  programs.ssh.extraConfig =
+  ''
+  ## WARDEN START ##
+  Host tunnel.warden.test
+  HostName 127.0.0.1
+  User user
+  Port 2222
+  IdentityFile ~/.den/tunnel/ssh_key
+  Host tunnel.den.test
+  HostName 127.0.0.1
+  User user
+  Port 2222
+  IdentityFile ~/.den/tunnel/ssh_key
+  ## WARDEN END ##
+  '';
 }
