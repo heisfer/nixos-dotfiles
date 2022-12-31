@@ -22,6 +22,7 @@
     libnotify
     zip
     unzip
+    tdesktop
     (callPackage ./pkgs/den.nix { } )
     (callPackage ./pkgs/gdlauncher.nix { } )
     (callPackage ./pkgs/miru.nix { } )
