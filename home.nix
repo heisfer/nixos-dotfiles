@@ -13,6 +13,7 @@
     scrcpy
     symfony-cli
     jetbrains.phpstorm
+    xorg.xrandr
     nix-prefetch-git
     lm_sensors
     pavucontrol
