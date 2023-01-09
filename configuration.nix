@@ -163,10 +163,10 @@
   system.stateVersion = "22.11"; # Did you read the comment?
 
 
-  services.dnsmasq.enable = true;
-  services.dnsmasq.extraConfig = ''
-   address=/.local/127.0.0.1
-  '';
+#  services.dnsmasq.enable = true;
+#  services.dnsmasq.extraConfig = ''
+#   address=/.local/127.0.0.1
+#  '';
 
   programs.ssh.extraConfig =
   ''
