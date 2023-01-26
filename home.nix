@@ -26,6 +26,7 @@
     tdesktop
     gnome.nautilus
     jetbrains.phpstorm
+    xorg.setxkbmap
     (callPackage ./pkgs/den.nix { } )
     (callPackage ./pkgs/gdlauncher.nix { } )
     (callPackage ./pkgs/miru.nix { } )
