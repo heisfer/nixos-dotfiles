@@ -5,8 +5,8 @@
 let
   name = "gdlauncher";
   src = fetchurl {
-    url = "https://github.com/gorilla-devs/GDLauncher/releases/download/v1.1.29/GDLauncher-linux-setup.AppImage";
-    sha256 = "sha256-hKyJ5v++0PGC/nWEZdOscpk5hY5ooJNUuMPmLKCgJ68=";
+    url = "https://github.com/gorilla-devs/GDLauncher/releases/download/v1.1.30/GDLauncher-linux-setup.AppImage";
+    sha256 = "sha256-00rzv0i4g701v9ssy55lg7sjddrgfnf0mdq5x85c1831xkfx7ig1";
   };
   appimageContents = appimageTools.extractType2 { inherit name src; };
 in appimageTools.wrapType2 {
