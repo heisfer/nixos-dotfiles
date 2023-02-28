@@ -10,6 +10,7 @@
     jq
     imagemagick
     youtube-music
+    woeusb-ng
     scrcpy
     symfony-cli
     jetbrains.phpstorm
@@ -62,6 +63,9 @@
   services.dunst = {
     enable = true;
   };
+
+
+  
   home.sessionVariables = {
     _JAVA_AWT_WM_NONREPARENTING = "1";
     MOZ_ENABLE_WAYLAND = "1";
@@ -70,4 +74,5 @@
     SDL_VIDEODRIVER = "wayland";
     XDG_SESSION_TYPE = "wayland";
   };
+
 }

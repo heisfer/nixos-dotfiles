@@ -5,8 +5,8 @@
 let
   name = "miru";
   src = fetchurl {
-    url = "https://github.com/ThaUnknown/miru/releases/download/v3.5.0/linux-Miru-3.5.0.AppImage";
-    sha256 = "0qakjm8x30w6qip1k6vxq49arqxsg5ciz6rc2lmmh5fbs15kb360";
+    url = "https://github.com/ThaUnknown/miru/releases/download/v3.7.4/linux-Miru-3.7.4.AppImage";
+    sha256 = "sha256-KO3/NWfix+NKOFi9wmID5B5Mdq9RPT12YMn5KFGkGwA=";
   };
   appimageContents = appimageTools.extractType2 { inherit name src; };
 in appimageTools.wrapType2 {

@@ -10,7 +10,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
-
+  boot.supportedFilesystems = [ "ntfs" ];
   # Setup keyfile
   boot.initrd.secrets = {
     "/crypto_keyfile.bin" = null;
@@ -50,11 +50,11 @@
   };
 
   # Enable the X11 windowing system.
-#  services.xserver.enable = true;
+  services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-#  services.xserver.displayManager.gdm.enable = true;
-#  services.xserver.desktopManager.gnome.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
@@ -92,6 +92,7 @@
     packages = with pkgs; [
       vscode
       pfetch
+      ntfs3g
       killall
       git
       openssl
@@ -148,6 +149,9 @@
   hardware.opengl.driSupport = true;
   hardware.opengl.enable = true;
   hardware.opengl.driSupport32Bit = true;
+  hardware.opengl.extraPackages = with pkgs; [
+    rocm-opencl-icd
+  ];
   services.fprintd.enable = true;
   virtualisation.docker.enable = true;
   programs.adb.enable = true;
@@ -167,7 +171,33 @@
 #  services.dnsmasq.extraConfig = ''
 #   address=/.local/127.0.0.1
 #  '';
-
+services.nginx = {
+  enable = true;
+  virtualHosts."localhost" = {
+    root = "/home/heisfer/www
+    ";
+    locations."~ \.php$".extraConfig = ''
+      fastcgi_pass  unix:${config.services.phpfpm.pools.mypool.socket};
+      fastcgi_index index.php;
+    '';
+  };
+};
+services.mysql = {
+  enable = true;
+  package = pkgs.mariadb;
+};
+services.phpfpm.pools.mypool = {                                                                                                                                                                                                             
+  user = "nobody";                                                                                                                                                                                                                           
+  settings = {                                                                                                                                                                                                                               
+    pm = "dynamic";            
+    "listen.owner" = config.services.nginx.user;                                                                                                                                                                                                              
+    "pm.max_children" = 5;                                                                                                                                                                                                                   
+    "pm.start_servers" = 2;                                                                                                                                                                                                                  
+    "pm.min_spare_servers" = 1;                                                                                                                                                                                                              
+    "pm.max_spare_servers" = 3;                                                                                                                                                                                                              
+    "pm.max_requests" = 500;                                                                                                                                                                                                                 
+  };                                                                                                                                                                                                                                         
+};
   programs.ssh.extraConfig =
   ''
   ## WARDEN START ##
